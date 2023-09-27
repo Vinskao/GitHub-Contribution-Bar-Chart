@@ -128,6 +128,8 @@ if (typeof window !== 'undefined') {
 						tooltip.transition()
 							.style('visibility', 'visible')
                         tooltip.text(`Date: ${item[0]}, Count: ${item[1]}`)
+
+						document.querySelector('#tooltip').setAttribute('data-date', item[0])
 					})
 					.on('mouseout', (item) => {
 						tooltip.transition()
