@@ -20,7 +20,7 @@ if (typeof window !== 'undefined') {
 	console.log('DOM已加載');
 	$(document).ready(function() {
 		let jsonData; 
-		$.getJSON("https://firebasestorage.googleapis.com/v0/b/graph-2cfc7.appspot.com/o/graph.json?alt=media&token=fae35fec-40f6-4244-a299-ff484d94bedc", function(response) {
+		$.getJSON("https://firebasestorage.googleapis.com/v0/b/graph-2cfc7.appspot.com/o/graph.json?alt=media&token=e661ddf2-8464-422c-a8cc-538bbccf98ca", function(response) {
 			jsonData = response; 
 			const contributionDays = jsonData.data.user.contributionsCollection.contributionCalendar.weeks
 				.flatMap(week => week.contributionDays);
@@ -147,11 +147,14 @@ if (typeof window !== 'undefined') {
 					.call(xAxis)
 					.attr('id', 'x-axis')
 					.attr('transform', `translate(0, ${height - padding})`)
-					.style('font-size', '11px',)
 					.selectAll('text')
-					.style('fill', '#7E3BBF'); 
+					.style('fill', '#7E3BBF')
+					.attr('transform', 'rotate(-40)')
+					.attr('dy', '1em') 
+    				.style('text-anchor', 'end')
+					.style('font-size', '9px');
 					
-
+					
 				svg
 					.append('g')
 					.attr('id', 'y-axis')
@@ -161,16 +164,6 @@ if (typeof window !== 'undefined') {
 					.selectAll('text')
 					.style('fill', '#7E3BBF'); 
 
-
-				svg
-					.append('text')
-					.attr('x', width / 2)
-					.attr('y', height - padding + 30) 
-					.style('text-anchor', 'middle')
-					.text('Date')
-					.style('fill', '#7E3BBF');
-
-				
 				svg
 					.append('text')
 					.attr('transform', 'rotate(-90)')
