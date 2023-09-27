@@ -88,11 +88,21 @@ if (typeof window !== 'undefined') {
 
 			let drawBars = () => {
 				let tooltip = d3.select('body')
-									.append('div')
-									.attr('id','tooltips')
-									.style('visibility','hidden')
-									.style('width', 'auto')
-									.style('height', 'auto')
+                                .append('div')
+                                .attr('id', 'tooltip')
+                                .style('visibility', 'hidden')
+                                .style('width', 'auto')
+                                .style('height', 'auto')
+                                .style('position', 'absolute')
+                                .style('text-align', 'center')
+                                .style('background-color', 'rgba(0, 0, 0, 0.7)')
+                                .style('color', 'white')
+                                .style('border-radius', '5px')
+                                .style('padding', '5px')
+                                .style('left', '26.5%') // 设置水平居中
+                                .style('top', '6%')  // 设置垂直居中
+                                .style('transform', 'translate(-50%, -50%)');
+
 				svg.selectAll('rect')
 					.data(dataPoints)
 					.enter()
@@ -117,8 +127,7 @@ if (typeof window !== 'undefined') {
 					.on('mouseover', (item) => {
 						tooltip.transition()
 							.style('visibility', 'visible')
-
-						tooltip.text(item[0],item[1])
+                        tooltip.text(`Date: ${item[0]}, Count: ${item[1]}`)
 					})
 					.on('mouseout', (item) => {
 						tooltip.transition()
