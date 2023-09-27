@@ -11,3 +11,9 @@
 .bar:hover {
     fill: purple; 
 }
+
+
+#x-axis text, #y-axis text {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 11px;
+}

@@ -99,8 +99,8 @@ if (typeof window !== 'undefined') {
                                 .style('color', 'white')
                                 .style('border-radius', '5px')
                                 .style('padding', '5px')
-                                .style('left', '25%') // 设置水平居中
-                                .style('top', '3%')  // 设置垂直居中
+                                .style('left', '25%') 
+                                .style('top', '3%')  
                                 .style('transform', 'translate(-50%, -50%)');
 
 				svg.selectAll('rect')
@@ -147,12 +147,46 @@ if (typeof window !== 'undefined') {
 					.call(xAxis)
 					.attr('id', 'x-axis')
 					.attr('transform', `translate(0, ${height - padding})`)
+					.style('font-size', '11px',)
+					.selectAll('text')
+					.style('fill', '#7E3BBF'); 
+					
 
 				svg
 					.append('g')
 					.attr('id', 'y-axis')
 					.attr('transform', `translate(${padding}, 0)`)
-					.call(yAxis);
+					.call(yAxis)
+					.style('font-size', '11px')
+					.selectAll('text')
+					.style('fill', '#7E3BBF'); 
+
+
+				svg
+					.append('text')
+					.attr('x', width / 2)
+					.attr('y', height - padding + 30) 
+					.style('text-anchor', 'middle')
+					.text('Date')
+					.style('fill', '#7E3BBF');
+
+				
+				svg
+					.append('text')
+					.attr('transform', 'rotate(-90)')
+					.attr('y', padding - 25) 
+					.attr('x', -height / 2) 
+					.style('text-anchor', 'middle')
+					.text('Count')
+					.style('fill', '#7E3BBF');
+
+				svg.selectAll('#x-axis path')
+					.style('stroke-width', '4px')
+					.style('stroke', '#7E3BBF')
+				
+				svg.selectAll('#y-axis path')
+					.style('stroke-width', '4px')
+					.style('stroke', '#7E3BBF')
 			}
 
 			drawCanvas()
