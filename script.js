@@ -99,8 +99,8 @@ if (typeof window !== 'undefined') {
                                 .style('color', 'white')
                                 .style('border-radius', '5px')
                                 .style('padding', '5px')
-                                .style('left', '26.5%') // 设置水平居中
-                                .style('top', '6%')  // 设置垂直居中
+                                .style('left', '25%') // 设置水平居中
+                                .style('top', '1%')  // 设置垂直居中
                                 .style('transform', 'translate(-50%, -50%)');
 
 				svg.selectAll('rect')
