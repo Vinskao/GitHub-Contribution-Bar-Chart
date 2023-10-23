@@ -1,9 +1,8 @@
-//get data
-////////////////////////////////////////////////////////////////
+import axios from 'axios';
+import fs from 'fs';
+import dotenv from 'dotenv';
 
-const axios = require('axios');
-const fs = require('fs');
-require('dotenv').config();
+dotenv.config();
 
 const githubToken = process.env.GITHUB_TOKEN;
 
@@ -32,6 +31,7 @@ query($userName: String!) {
 
 const variables = {
   userName: 'Vinskao',
+  date: '2023-10-23',
 };
 
 const headers = {
@@ -54,4 +54,3 @@ axios.post('https://api.github.com/graphql', {
   .catch(error => {
     console.error('GraphQL请求失败:', error);
   });
-
