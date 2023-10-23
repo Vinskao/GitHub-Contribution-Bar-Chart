@@ -1,6 +1,5 @@
-import axios from 'axios';
-import fs from 'fs';
-import dotenv from 'dotenv';
+import axios from '/node_modules/axios/dist/axios.js';
+import dotenv from '/node_modules/dotenv/main.js';
 
 dotenv.config();
 
@@ -25,7 +24,6 @@ query($userName: String!) {
         }
         }
     }
-    }
 }
 `;
 
@@ -44,12 +42,22 @@ axios.post('https://api.github.com/graphql', {
 }, {
   headers,
 })
-  .then(response => {
+  .then(async response => {
     const result = response.data.data;
     const formattedResult = JSON.stringify(result, null, 2);
     console.log(formattedResult);
-    fs.writeFileSync('github-query-result.json', formattedResult);
 
+    // 创建一个 Blob 对象
+    const blob = new Blob([formattedResult], { type: 'application/json' });
+
+    // 创建一个下载链接
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'github-query-result.json';
+
+    // 模拟用户点击下载链接
+    a.click();
   })
   .catch(error => {
     console.error('GraphQL请求失败:', error);
