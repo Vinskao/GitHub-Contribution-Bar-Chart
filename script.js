@@ -1,5 +1,7 @@
 //make chart
 ////////////////////////////////////////////////////////////////
+
+
 const dataPoints = [];
 const dateValues = [];
 const monthMap = {
@@ -24,7 +26,7 @@ if (typeof window !== 'undefined') {
 		let jsonData; 
 		$.getJSON("https://firebasestorage.googleapis.com/v0/b/graph-2cfc7.appspot.com/o/graph.json?alt=media&token=e661ddf2-8464-422c-a8cc-538bbccf98ca", function(response) {
 			jsonData = response; 
-			const contributionDays = jsonData.data.user.contributionsCollection.contributionCalendar.weeks
+			const contributionDays = jsonData.user.contributionsCollection.contributionCalendar.weeks
 				.flatMap(week => week.contributionDays);
 			let month;
 			let dayOfMonth;
