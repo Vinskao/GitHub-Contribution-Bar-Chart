@@ -17,3 +17,12 @@
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 11px;
 }
+
+#contributionTotal {
+    position: absolute;
+    top: 70px;
+    left: 225px; 
+    text-align: center;
+    color: #411171;
+    font-size: 20px;
+}

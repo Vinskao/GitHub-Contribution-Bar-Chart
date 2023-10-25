@@ -1,7 +1,5 @@
 //make chart
 ////////////////////////////////////////////////////////////////
-
-
 const dataPoints = [];
 const dateValues = [];
 const monthMap = {
@@ -28,6 +26,9 @@ if (typeof window !== 'undefined') {
 			jsonData = response; 
 			const contributionDays = jsonData.user.contributionsCollection.contributionCalendar.weeks
 				.flatMap(week => week.contributionDays);
+			const contributionTotal = jsonData.user.contributionsCollection.contributionCalendar.totalContributions
+			const contributionTotalElement = document.getElementById('contributionTotal');
+			contributionTotalElement.textContent = `Total Contributions: ${contributionTotal}`;
 			let month;
 			let dayOfMonth;
 			let year;
@@ -77,7 +78,7 @@ if (typeof window !== 'undefined') {
 				})
 
 				console.log(datesArray)
-
+				
 				xAxisScale = d3.scaleTime()
 								.domain([d3.min(datesArray), d3.max(datesArray)])
 								.range([padding, width - padding])
