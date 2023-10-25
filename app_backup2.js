@@ -6,14 +6,7 @@ import { getDatabase, ref, set } from 'firebase/database';
 dotenv.config();
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDBScLoaaUjJ4hbpuREX9kA0BdyPtNtREg",
-  authDomain: "graph-2cfc7.firebaseapp.com",
-  databaseURL: "https://graph-2cfc7-default-rtdb.firebaseio.com",
-  projectId: "graph-2cfc7",
-  storageBucket: "graph-2cfc7.appspot.com",
-  messagingSenderId: "279318125379",
-  appId: "1:279318125379:web:a3300442391bf1a781adf6",
-  measurementId: "G-XBKMHNDYB6"
+
 };
 
 const app = initializeApp(firebaseConfig);
