@@ -28,7 +28,7 @@ if (typeof window !== 'undefined') {
 				.flatMap(week => week.contributionDays);
 			const contributionTotal = jsonData.user.contributionsCollection.contributionCalendar.totalContributions
 			const contributionTotalElement = document.getElementById('contributionTotal');
-			contributionTotalElement.textContent = `Total Contributions: ${contributionTotal}`;
+			contributionTotalElement.textContent = `Total Contributions Rolling-year: ${contributionTotal}`;
 			let month;
 			let dayOfMonth;
 			let year;
