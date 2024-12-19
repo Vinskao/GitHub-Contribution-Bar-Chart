@@ -5,3 +5,5 @@ app_backup.js
 app_backup2.js
 app_backup3.js
 appbroke.js
+/node_modules/
+/.vscode/

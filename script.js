@@ -1,5 +1,4 @@
 //make chart
-////////////////////////////////////////////////////////////////
 const dataPoints = [];
 const dateValues = [];
 const monthMap = {
@@ -19,7 +18,6 @@ const monthMap = {
 addEventListener('load', () => {
 
 if (typeof window !== 'undefined') {
-	console.log('DOM已加載');
 	$(document).ready(function() {
 		let jsonData; 
 		$.getJSON("https://firebasestorage.googleapis.com/v0/b/graph-2cfc7.appspot.com/o/graph.json?alt=media&token=e661ddf2-8464-422c-a8cc-538bbccf98ca", function(response) {
@@ -43,7 +41,7 @@ if (typeof window !== 'undefined') {
 				dataPoints.push([fullDate, contributionCount]);
 			});
 			
-			console.log(dataPoints);
+			// console.log(dataPoints);
 
 
 			let heightScale
@@ -63,84 +61,62 @@ if (typeof window !== 'undefined') {
 			}
 
 			let generateScales = () => {
+				// Create a linear scale for the y-axis
 				heightScale = d3.scaleLinear()
-								.domain([0 , d3.max(dataPoints, (item) => {
-									return item[1];
-								})])
-								.range([0 , height - (2 * padding)])
-
-				xScale = d3.scaleLinear()
-								.domain([0, dataPoints.length -1])
-								.range([padding, width - padding])
-
-				let datesArray = dataPoints.map((item) =>{
-					return new Date(item[0])
-				})
-
-				console.log(datesArray)
-				
+					.domain([0, d3.max(dataPoints, (item) => {
+						return item[1];
+					})])
+					.range([0, height - (2 * padding)]);
+			
+				// Create a time scale for the x-axis based on the date values from the data points
 				xAxisScale = d3.scaleTime()
-								.domain([d3.min(datesArray), d3.max(datesArray)])
-								.range([padding, width - padding])
-
+					.domain([d3.min(dataPoints, (item) => new Date(item[0])), d3.max(dataPoints, (item) => new Date(item[0]))])
+					.range([padding, width - padding]);
+			
+				// Create a linear scale for the y-axis
 				yAxisScale = d3.scaleLinear()
-								.domain([0, d3.max(dataPoints , (item)=>{
-									return item[1]
-								})])
-								.range([height - padding, padding])
-
-			}
-
+					.domain([0, d3.max(dataPoints, (item) => item[1])])
+					.range([height - padding, padding]);
+			};
+			
 			let drawBars = () => {
 				let tooltip = d3.select('body')
-                                .append('div')
-                                .attr('id', 'tooltip')
-                                .style('visibility', 'hidden')
-                                .style('width', 'auto')
-                                .style('height', 'auto')
-                                .style('position', 'absolute')
-                                .style('text-align', 'center')
-                                .style('background-color', 'rgba(0, 0, 0, 0.7)')
-                                .style('color', 'white')
-                                .style('border-radius', '5px')
-                                .style('padding', '5px')
-                                .style('left', '25%') 
-                                .style('top', '3%')  
-                                .style('transform', 'translate(-50%, -50%)');
-
+					.append('div')
+					.attr('id', 'tooltip')
+					.style('visibility', 'hidden')
+					.style('position', 'absolute')
+					.style('text-align', 'center')
+					.style('background-color', 'rgba(0, 0, 0, 0.7)')
+					.style('color', 'white')
+					.style('border-radius', '5px')
+					.style('padding', '5px')
+					.style('left', '25%')
+					.style('top', '3%');
+			
 				svg.selectAll('rect')
 					.data(dataPoints)
 					.enter()
 					.append('rect')
 					.attr('class', 'bar')
-					.attr('width', (width - (2 * padding))/ dataPoints.length)
-					.attr('data-date', (item) => {
-						return item[0]
-					})
-					.attr('data-count', (item) => {
-						return item[1]
-					})
-					.attr('height', (item) => {
-						return heightScale(item[1])
-					})
-					.attr('x', (item, index) => {
-						return xScale(index)
-					})
-					.attr('y', (item) => {
-						return (height - padding - heightScale(item[1]))
-					})
+					.attr('width', (width - (2 * padding)) / dataPoints.length)
+					.attr('data-date', (item) => item[0])
+					.attr('data-count', (item) => item[1])
+					.attr('height', (item) => heightScale(item[1]))
+					.attr('x', (item) => xAxisScale(new Date(item[0])))  // Use time scale for positioning
+					.attr('y', (item) => (height - padding - heightScale(item[1])))
 					.on('mouseover', (item) => {
 						tooltip.transition()
-							.style('visibility', 'visible')
-                        tooltip.text(`Date: ${item[0]}, Count: ${item[1]}`)
-
-						document.querySelector('#tooltip').setAttribute('data-date', item[0])
+							.style('visibility', 'visible');
+						tooltip.text(`Date: ${item[0]}, Count: ${item[1]}`);
+			
+						document.querySelector('#tooltip').setAttribute('data-date', item[0]);
 					})
-					.on('mouseout', (item) => {
+					.on('mouseout', () => {
 						tooltip.transition()
-							.style('visibility', 'hidden')
-					})
-			}
+							.style('visibility', 'hidden');
+					});
+			};
+			
 
 			let generateAxes = () => {
 				
